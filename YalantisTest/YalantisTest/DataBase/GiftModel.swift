@@ -24,7 +24,6 @@ class Persistance{
             priceList.append(savedList[index].price)
             checkList.append(savedList[index].check)
         }
-        print("loaded")
         return (itemList, priceList, checkList)
     }
     func add(item: String, price: Int){
@@ -35,7 +34,6 @@ class Persistance{
             newGift.check = false
             realm.add(newGift)
         }
-        print("saved")
     }
     func save(giftList: [String], priceList: [Int], checkList: [Bool]) {
         let objects = realm.objects(Gift.self)
@@ -57,58 +55,8 @@ class Persistance{
         try! realm.write{
             realm.delete(allGifts[index])
         }
-        print("deleted")
     }
-//    func download() -> ([String], [Int], [Bool], [Int]){
-//        var itemList = [String]()
-//        var priceList = [Int]()
-//        var checkList = [Bool]()
-//        var checkStack = [Int]()
-//        let savedList = realm.objects(Gift.self)
-//        guard let _ = savedList.first else {return ([], [], [], [])}
-//        for index in 0..<savedList.count{
-//            itemList.append(savedList[index].item)
-//            priceList.append(savedList[index].price)
-//            checkList.append(savedList[index].check)
-//            checkStack.append(savedList[index].checkStack)
-//        }
-//        print("loaded")
-//        return (itemList, priceList, checkList, checkStack)
-//    }
-//    func add(item: String, price: Int){
-//        try! realm.write{
-//            let newGift = Gift()
-//            newGift.item = item
-//            newGift.price = price
-//            newGift.check = false
-//            realm.add(newGift)
-//        }
-//        print("saved")
-//    }
-//    func save(giftList: [String], priceList: [Int], checkList: [Bool], checkStack: [Int]) {
-//        let objects = realm.objects(Gift.self)
-//        try! realm.write{
-//            realm.delete(objects)
-//        }
-//        for i in 0..<giftList.count{
-//            let savedGift = Gift()
-//            try! realm.write{
-//                savedGift.item = giftList[i]
-//                savedGift.price = priceList[i]
-//                savedGift.check = checkList[i]
-//                savedGift.checkStack = checkStack[i]
-//                realm.add(savedGift)
-//            }
-//        }
-//        print("saved checkstack for iteams")
-//    }
-//    func delete(index: Int){
-//        let allGifts = realm.objects(Gift.self)
-//        try! realm.write{
-//            realm.delete(allGifts[index])
-//        }
-//        print("deleted")
-//    }
+
 //MARK: - Stack managment
     func downloadStack() -> ([Int]){
         var stack = [Int]()
@@ -141,22 +89,5 @@ class Persistance{
                 }
             }
         }
-        print("deleted")
     }
-    
-//    func check(newIndex: Int){
-//        let objects = realm.objects(Gift.self)
-//        try! realm.write{
-//            realm.delete(objects)
-//        }
-//        for i in 0..<giftList.count{
-//            let savedGift = Gift()
-//            try! realm.write{
-//                savedGift.item = giftList[i]
-//                savedGift.price = priceList[i]
-//                savedGift.check = checkList[i]
-//                realm.add(savedGift)
-//            }
-//        }
-//    }
 }

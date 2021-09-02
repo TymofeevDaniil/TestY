@@ -17,7 +17,7 @@ class AddGiftViewController: UIViewController {
     @IBOutlet weak var newGiftTextField: UITextField!
     @IBOutlet weak var newPriceTextField: UITextField!
     @IBAction func addGiftButton(_ sender: Any) {
-        //delegate?.add(window: self)
+
         guard let gift = newGiftTextField.text else {return}
         guard let price = newPriceTextField.text else {return}
         guard let priceInt = Int(price) else {return}
@@ -28,14 +28,3 @@ class AddGiftViewController: UIViewController {
         super.viewDidLoad()
     }
 }
-//extension ListViewController: NewGift{
-//    func add(window: AddGiftViewController) {
-//        guard let gift = window.newGiftTextField.text else {return}
-//        guard let price = window.newPriceTextField.text else {return}
-//        guard let priceInt = Int(price) else {return}
-//        Persistance.shared.add(item: gift, price: priceInt)
-//        (giftList, priceList, checkList) = Persistance.shared.download()
-//        listTableView.reloadData()
-//        self.view.layoutSubviews()
-//    }
-//}

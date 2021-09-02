@@ -12,7 +12,6 @@ class Gift: Object{
     @objc dynamic var item = String()
     @objc dynamic var price = Int()
     @objc dynamic var check = Bool()
-//    @objc dynamic var checkStack = Int()
 }
 
 class Stack: Object{

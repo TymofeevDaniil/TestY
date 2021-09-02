@@ -50,52 +50,6 @@ class ListViewController: UIViewController {
         Persistance.shared.saveStack(stack: savedStack)
         listTableView.reloadData()
     }
-//    func limitControl(){
-//        guard let limit = Int(numberLimitLabel.text!) else {return}
-//        var currentSum = 0
-//        var removeFromStack = [Int]()
-//        print("cs start limit \(checkStack.count)")
-//        for i in 0..<checkStack.count {
-//            currentSum += priceList[checkStack[i]]
-//        }
-//        print("cs start limit \(checkStack.count)")
-//        for i in 0..<checkStack.count{
-//            if currentSum <= limit {
-//                break
-//            } else {
-//                currentSum -= priceList[checkStack[i]]
-//                removeFromStack.append(i)
-//            }
-//        }
-//        guard removeFromStack == [] else {return}
-//        print("cs start limit \(checkStack.count)")
-//        for i in 0..<removeFromStack.count {
-//            checkStack.remove(at: removeFromStack[i])
-//            checkList[removeFromStack[i]] = false
-//        }
-//    }
-//        let reversedCheckStack = checkStack.reversed() as [Int]
-//        var currentSum = 0
-//        var indexToDelete = [Int]()
-//        for i in 0..<checkStack.count {
-//            if currentSum <= limit {
-//                currentSum += priceList[reversedCheckStack[i]]
-//            } else {
-//                checkList[reversedCheckStack[i]] = false
-//                indexToDelete.append(reversedCheckStack[i])
-//            }
-//        }
-//        for _ in 0..<indexToDelete.count{
-//            checkList.dropFirst()
-//        }
-        
-//        for i in 0..<savedIndexes.count {
-//            if currentSum > limit {
-//                currentSum -= priceList[savedIndexes[i]]
-//                checkList[savedIndexes[i]] = false
-//            }
-//        }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         listTableView.reloadData()
@@ -125,34 +79,24 @@ extension ListViewController: UITableViewDelegate{
             Persistance.shared.saveStack(stack: checkStack)
             print("checkstack savedc\(checkStack)")
             
-            
+//check limit and manage stack
             checkLimit(index: indexPath.row)
-
             (giftList, priceList, checkList) = Persistance.shared.download()
             checkStack = Persistance.shared.downloadStack()
-            print(giftList)
-            print(priceList)
-            print(checkList)
-            print(checkStack)
             listTableView.reloadData()
         } else {
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
             checkList[indexPath.row] = false
             let newStack = checkStack.filter{$0 != indexPath.row}
-        
-            print("cs else \(checkStack.count)")
             Persistance.shared.save(giftList: giftList, priceList: priceList, checkList: checkList)
             Persistance.shared.saveStack(stack: newStack)
             (giftList, priceList, checkList) = Persistance.shared.download()
             checkStack = Persistance.shared.downloadStack()
-            print(giftList)
-            print(priceList)
-            print(checkList)
-            print(checkStack)
             listTableView.reloadData()
         }
     }
 }
+//MARK: - Enable table editing
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return giftList.count
@@ -177,7 +121,6 @@ extension ListViewController: UITableViewDataSource {
         self.checkStack = Persistance.shared.downloadStack()
            self.listTableView.deleteRows(at: [indexPath], with: .fade)
            self.listTableView.endUpdates()
-           print("deleting")
        }
        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
